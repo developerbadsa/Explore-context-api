@@ -1,12 +1,35 @@
+import {  onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import Auth from "../Firebase_config/Firebase_config";
 
 
 
 const Login = () => {
 
-    const handleSubmit = (e)=>{
+    const [login, setLogin] = useState(false)
+    const [loginErr, setLoginErr] = useState(false)
+
+    const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(e.target.email.value)
-    }
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+
+        signInWithEmailAndPassword(Auth, email, password)
+
+            .then((userCredential) => {
+                const user = userCredential.user;
+                setLogin(true)
+                console.log("User signed in:", user);
+                setLoginErr(false)
+            })
+            .catch((error) => {
+                setLogin(false)
+                setLoginErr(true)
+                console.error("Error signing in:", error);
+            });
+
+        console.log(email, password);
+    };
 
 
     return (
@@ -36,6 +59,7 @@ const Login = () => {
                         <div className="form-control mt-6">
                             <button type="submit" className="btn btn-primary">Login</button>
                         </div>
+                    {login ? <div> Log in Successfully</div>:''}{loginErr ? <div className="text-red-300"> Error happen</div>:''}
                     </form>
                 </div>
             </div>
