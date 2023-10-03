@@ -11,13 +11,21 @@ const Navbar = () => {
             <li><NavLink to='/'> Home </NavLink></li>
             {
                 !user?.email && (
-                    <> 
-                     <li><NavLink to='/login'> Login </NavLink></li>
-                     <li><NavLink to='/register'> Register </NavLink></li>
+                    <>
+                        <li><NavLink to='/login'> Login </NavLink></li>
+                        <li><NavLink to='/register'> Register </NavLink></li>
                     </>
                 )
             }
-           
+            {
+                user?.email && (
+                    <>
+
+                        <li><NavLink to='/order'> Order </NavLink></li>
+                    </>
+                )
+            }
+
         </>
     );
 
@@ -47,7 +55,7 @@ const Navbar = () => {
                 <div className="flex gap-2 navbar-end">
                     <span>{user?.email}</span>
                     <button className="btn btn-sm btn-primary" onClick={handleLogOut}>Logout</button>
-                    </div> ) : '' 
+                </div>) : ''
             }
         </div>
     );

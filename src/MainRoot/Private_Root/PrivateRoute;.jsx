@@ -8,10 +8,7 @@ const PrivateRoute = ({ children }) => {
   const {user} = useContext(userContext)
 
 
-    
-  const isAuthenticated = true; 
-
-  return !user ? children : <Navigate to="/" />;
+  return user ? children : <Navigate to="/login" />;
 };
 
 export default PrivateRoute;
